@@ -7,3 +7,7 @@ print(turples[0])
 print(set[0])
 
 list.append("Kely")
+
+abroad = {"Rodolf, Bob"}
+local_friends = abroad.difference(sets)
+print(local_friends)
