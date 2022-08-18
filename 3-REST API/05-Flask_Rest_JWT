@@ -1,0 +1,39 @@
+from gettext import find
+from flask import Flask, request
+from flask_restful import Resource,Api
+from flask_jwt_extended import JWTManager
+
+
+app = Flask(__name__)
+app.secret_key = 'joao'
+api = Api(app)
+
+items = []
+
+jwt = JWTManager(app, authenticate, identity)
+
+class Item(Resource):
+    def get(self, name):
+        #next filter = getting the first item of the verification, lambda doing a for function for every x in items, if found, return "item", if not, None
+        item = next(filter(lambda x: x['name'] == name, items), None) #for x in items, loop for search
+        
+        return({'message': item}, 200 if item else 404)
+
+    def post(self, name):
+        #checking first if the item already exist
+        if next(filter(lambda x: x['name'] == name, items), None):
+            return {'message': f"An item with the name {name} already exists"}, 400
+        
+        data = request.get_json(force=True, silent=True) #force=true disables the header, prevents error if the format is not json, silence=true will not return an error, will simple not run
+        item = {'name': name, 'price': data['price']}
+        items.append(item)
+        return item,201 #201 is for created
+
+class Items(Resource):
+    def get(self):
+        return {'items': items}
+
+api.add_resource(Item, '/item/<string:name>')
+api.add_resource(Items, '/items')
+
+app.run(port=5000, debug=True)
