@@ -1,5 +1,4 @@
-from 05.02-user import User
-
+from user import User
 
 users = [
     User(1,'Bob','123')
