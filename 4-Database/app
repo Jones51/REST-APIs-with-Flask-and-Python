@@ -1,72 +1,21 @@
-from gettext import find
-from flask import Flask, request
-from flask_restful import Resource,Api, reqparse
-from flask_jwt import JWT, jwt_required
+from flask import Flask
+from flask_restful import Api
+from flask_jwt import JWT
 from security import authenticate, identity
 from user_db import UserRegister
+from item import Item,Items
 
 app = Flask(__name__)
 app.secret_key = 'joao'
 api = Api(app)
 
-items = []
-
 jwt = JWT(app, authenticate, identity) #/auth
 
-class Item(Resource):
-    #by using the reparse we limit the elements to be updated
-    parser = reqparse.RequestParser()
-    parser.add_argument('price',
-        type=float,
-        required = True,
-        help ='This field cannot be left blank'
-    )
-
-    @jwt_required()
-    def get(self, name):
-        #next filter = getting the first item of the verification, lambda doing a for function for every x in items, if found, return "item", if not, None
-        item = next(filter(lambda x: x['name'] == name, items), None) #for x in items, loop for search
-        
-        return({'message': item}, 200 if item else 404)
-
-    def post(self, name):
-        #checking first if the item already exist
-        if next(filter(lambda x: x['name'] == name, items), None):
-            return {'message': f"An item with the name {name} already exists"}, 400
-        
-        data = Item.parser.parse_args()
-        item = {'name': name, 'price': data['price']}
-        items.append(item)
-        return item,201 #201 is for created
-
-    def delete(self, name):
-        global items
-        items = list(filter(lambda x: x['name'] != name, items))
-        return {'message': 'item deleted'}
-
-    def put(self, name):
-        #instead of using data=request.get_json. we use the parse for validation and security
-        #Also, using the "Item" in front is necesay since by declaring it above, its now a class method, and we need to use it internally now
-        data = Item.parser.parse_args()
-
-        item = next(filter(lambda x: x['name'] == name, items), None)
-        #if the item is none, it doesnt exist, we create id
-        if item == None:
-            item = {'name': name, 'price': data['price']}
-            items.append(item)
-        else:
-            #update is a native method for dictionaries in python
-            item.update(data)
-        
-        return item
-
-class Items(Resource):
-    def get(self):
-        return {'items': items}
 
 #Adding the resource classes and items connections
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(Items, '/items')
 api.add_resource(UserRegister, '/register')
 
-app.run(port=5000, debug=True)
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)

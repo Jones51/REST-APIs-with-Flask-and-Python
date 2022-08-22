@@ -175,9 +175,15 @@
 					"name": "/item/<name>",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "jWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjA4NDk2MDMsImlhdCI6MTY2MDg0OTMwMywibmJmIjoxNjYwODQ5MzAzLCJpZGVudGl0eSI6MX0.ttOCKS-uF-ww95hxOW_oQjBnl08tjr-Yi3mOI47f6qc",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/item/Chairr",
+							"raw": "http://127.0.0.1:5000/item/Piano",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -188,7 +194,7 @@
 							"port": "5000",
 							"path": [
 								"item",
-								"Chairr"
+								"Piano"
 							]
 						}
 					},
@@ -275,7 +281,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/item/<name>",
+							"raw": "http://127.0.0.1:5000/item/Chair",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -286,7 +292,7 @@
 							"port": "5000",
 							"path": [
 								"item",
-								"<name>"
+								"Chair"
 							]
 						}
 					},
@@ -305,10 +311,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"price\": 17.99\r\n}"
+							"raw": "{\r\n    \"price\": 6.99\r\n}"
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/item/<name>",
+							"raw": "http://127.0.0.1:5000/item/Chair",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -319,7 +325,7 @@
 							"port": "5000",
 							"path": [
 								"item",
-								"<name>"
+								"Chair"
 							]
 						}
 					},
@@ -358,7 +364,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/item/Chairr",
+							"raw": "http://127.0.0.1:5000/item/Chair",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -369,7 +375,7 @@
 							"port": "5000",
 							"path": [
 								"item",
-								"Chairr"
+								"Chair"
 							]
 						}
 					},
@@ -421,7 +427,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"Bob\",\r\n    \"password\": \"123\"\r\n}"
+							"raw": "{\r\n    \"username\": \"jose\",\r\n    \"password\": \"asdf\"\r\n}"
 						},
 						"url": {
 							"raw": "http://127.0.0.1:5000/auth",
@@ -435,6 +441,38 @@
 							"port": "5000",
 							"path": [
 								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"jose\",\r\n    \"password\": \"asdf\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"register"
 							]
 						}
 					},
@@ -486,7 +524,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"price\": 17.99\r\n}"
+							"raw": "{\r\n    \"username\": \"jose\",\r\n    \"password\": \"asdf\"\r\n}"
 						},
 						"url": {
 							"raw": "http://127.0.0.1:5000/item/<name>",
