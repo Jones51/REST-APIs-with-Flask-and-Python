@@ -1,4 +1,6 @@
+from cgitb import text
 import sqlite3
+from flask_restful import Resource, reqparse
 
 class User:
     def __init__(self, _id,username, password):
@@ -12,7 +14,7 @@ class User:
         cursor = connection.cursor()
 
         query = "SELECT * FROM users WHERE username = ?"
-        result = query.execute(query, (username,)) #(username, ) since the value needs to be a tuple, and a single tuple goes like this
+        result = cursor.execute(query, (username,)) #(username, ) since the value needs to be a tuple, and a single tuple goes like this
         row = result.fetchone() #get the first result
         if row:
             #creates an user with the database info
@@ -29,7 +31,7 @@ class User:
         cursor = connection.cursor()
 
         query = "SELECT * FROM users WHERE id = ?"
-        result = query.execute(query, (_id,)) #(_id, ) since the value needs to be a tuple, and a single tuple goes like this
+        result = cursor.execute(query, (_id,)) #(_id, ) since the value needs to be a tuple, and a single tuple goes like this
         row = result.fetchone() #get the first result
         if row:
             #creates an user with the database info
@@ -39,5 +41,32 @@ class User:
         
         connection.close()
         return user
+
+class UserRegister(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('username',
+        type=str,
+        required = True,
+        help ='This field cannot be left blank'
+    )
+    parser.add_argument('password',
+        type=str,
+        required = True,
+        help ='This field cannot be left blank'
+    )
+
+    def post(self):
+        connection = sqlite3.connect("data.db")
+        cursor = connection.cursor()
+
+        data = UserRegister.parser.parse_args()
+
+        query = "INSERT INTO users VALUES (NULL, ?, ?)" #The first one needs to be NULL since it its the id
+        cursor.execute(query, (data['username'], data['password'],)) #remember the data needs to be a turple
+
+        connection.commit()
+        connection.close()
+
+        return {"message": "User created successfully "}, 201
 
 
