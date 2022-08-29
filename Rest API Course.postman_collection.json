@@ -362,9 +362,15 @@
 					"name": "/item/<name>",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "jWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjE3Nzk2ODEsImlhdCI6MTY2MTc3OTM4MSwibmJmIjoxNjYxNzc5MzgxLCJpZGVudGl0eSI6MX0.7FLA2lfv-Q3IqQTlBjjB6_FrljW97n_AJj9-kiR5BiU",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/item/Chair",
+							"raw": "http://127.0.0.1:5000/item/Piano",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -375,7 +381,7 @@
 							"port": "5000",
 							"path": [
 								"item",
-								"Chair"
+								"Piano"
 							]
 						}
 					},
@@ -394,10 +400,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"price\": \"14.99\"\r\n}"
+							"raw": "{\r\n    \"price\": \"49.99\"\r\n}"
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/item/Chair",
+							"raw": "http://127.0.0.1:5000/item/Tablet",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -408,7 +414,7 @@
 							"port": "5000",
 							"path": [
 								"item",
-								"Chair"
+								"Tablet"
 							]
 						}
 					},
@@ -494,7 +500,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/item/<name>",
+							"raw": "http://127.0.0.1:5000/item/Tablet",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -505,7 +511,7 @@
 							"port": "5000",
 							"path": [
 								"item",
-								"<name>"
+								"Tablet"
 							]
 						}
 					},
@@ -524,10 +530,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"jose\",\r\n    \"password\": \"asdf\"\r\n}"
+							"raw": "{\r\n    \"price\": 399.99\r\n}"
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/item/<name>",
+							"raw": "http://127.0.0.1:5000/item/Piano",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -538,7 +544,310 @@
 							"port": "5000",
 							"path": [
 								"item",
-								"<name>"
+								"Piano"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 6",
+			"item": [
+				{
+					"name": "/items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/items",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/stores",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "jWT {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/item/Chair",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"Chair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "jWT {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/store/Store",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"store",
+								"Store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "jWT {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/store/Store",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"store",
+								"Store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\": \"145.99\",\r\n    \"store_id\": 1\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/item/Table",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"Table"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"tests[\"My test\"] = jsonData.access_token !== undefined;\r",
+									"\r",
+									"pm.environment.set(\"jwt_token\", jsonData.access_token);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"jose\",\r\n    \"password\": \"asdf\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/auth",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"jose\",\r\n    \"password\": \"asdf\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/item/Chair",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"Chair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/store/Store",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"store",
+								"Store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\": 199.99\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/item/Piano",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"Piano"
 							]
 						}
 					},
